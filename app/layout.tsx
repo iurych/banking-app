@@ -1,30 +1,33 @@
-import type { Metadata } from "next"
-import { IBM_Plex_Serif, Inter } from "next/font/google"
-import "./globals.css"
+/* eslint-disable camelcase */
+import type { Metadata } from 'next'
+import { IBM_Plex_Serif, Inter } from 'next/font/google'
+import './globals.css'
 
-const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ['latin'],
   weight: ['400', '700'],
-  variable: '--font-ibm-plex-serif' 
+  variable: '--font-ibm-plex-serif',
 })
 
 export const metadata: Metadata = {
-  title: "Horizon Bank",
-  description: "Modern banking platform",
+  title: 'Horizon Bank',
+  description: 'Modern banking platform',
   icons: {
-    icon: '/icons/logo.svg'
-  }
-};
+    icon: '/icons/logo.svg',
+  },
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${ibmPlexSerif.variable}`}>{children}</body>
+      <body className={`${inter.variable} ${ibmPlexSerif.variable}`}>
+        {children}
+      </body>
     </html>
-  );
+  )
 }

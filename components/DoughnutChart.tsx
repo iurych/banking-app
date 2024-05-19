@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
@@ -5,28 +6,30 @@ import { Doughnut } from 'react-chartjs-2'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-const DoughnutChart = ({accounts}: DoughnutChartProps) => {
+const DoughnutChart = ({ accounts }: DoughnutChartProps) => {
   const data = {
-    datasets: [ 
+    datasets: [
       {
         label: 'Banks',
         data: [2143, 1234, 5432],
-        backgroundColor: ['#0747b6', '#2265d8', '#2f91fa']
-      }
+        backgroundColor: ['#0747b6', '#2265d8', '#2f91fa'],
+      },
     ],
-    labels: ['Bank 1', 'Bank 2', 'Bank 3']
+    labels: ['Bank 1', 'Bank 2', 'Bank 3'],
   }
-  return <Doughnut
-   data={data}
-   options={{
-    cutout: '60%',
-    plugins: {
-      legend: {
-        display: false
-      }
-    }
-   }}
-   />
+  return (
+    <Doughnut
+      data={data}
+      options={{
+        cutout: '60%',
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+      }}
+    />
+  )
 }
 
 export default DoughnutChart
