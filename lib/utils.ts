@@ -199,5 +199,7 @@ export const authFormSchema = z.object({
   email: z.string().email({
     message: 'This should have a valid email format'
   }),
-  password: z.string().min(8)
+  password: z.string().min(8, {
+    message: 'Password must have at least 8 caracters'
+  })
 })

@@ -12,10 +12,8 @@ import {
   Form
 } from "@/components/ui/form"
 import { authFormSchema } from "@/lib/utils"
+import { Loader2 } from "lucide-react"
 import CustomInput from "./CustomInput"
-
-
-
 
 type authForm = z.infer<typeof authFormSchema>
 
@@ -27,6 +25,7 @@ interface AuthFormProps {
 
 const AuthForm = ({type}: AuthFormProps) => {
   const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   // define a form
   const form = useForm<authForm>({
@@ -39,7 +38,11 @@ const AuthForm = ({type}: AuthFormProps) => {
 
   // define a submite handler
   const onSubmit = async (values: authForm) => {
-    console.log(values)
+
+      setIsLoading(true)
+      console.log(values)
+      setIsLoading(false)
+    
   }
 
   return (
@@ -53,7 +56,7 @@ const AuthForm = ({type}: AuthFormProps) => {
           alt="Horizon logo"
         />
         <h1
-          className='text-26 font-ibm-plex-serif font-bold text-tblack-1'
+          className='text-26 font-ibm-plex-serif font-bold text-black-1'
           >Horizon
         </h1>
       </Link>
@@ -68,8 +71,8 @@ const AuthForm = ({type}: AuthFormProps) => {
           }
           <p className="text-16 font-normal text-gray-600" >
             {user
-              ? 'Link your account to get started'
-              : 'Please enter your details'
+              ? 'Please enter your details.'
+              : 'Welcome back! Please enter your details.'
             }
           </p>
         </h1>
@@ -86,7 +89,7 @@ const AuthForm = ({type}: AuthFormProps) => {
               
               <CustomInput
                 control={form.control}
-                name='username'
+                name='email'
                 label='Email'
                 placeholder='Enter your email...'
               />
@@ -97,10 +100,42 @@ const AuthForm = ({type}: AuthFormProps) => {
                 label='Password'
                 placeholder='******'
               />
+
+              <div
+                className="flex flex-col gap-4"
+              >
+                <Button type="submit" className='form-btn'
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <Fragment>
+                      <Loader2 
+                        size={20}
+                        className="animate-spin"
+                      /> &nbsp;
+                      Loading...
+                    </Fragment>
+                  ) : type === 'sign-in'
+                    ? 'Sign In' : 'Sign-Up'
+                  }
+                </Button>
+              </div>
             
-              <Button type="submit">Submit</Button>
             </form>
           </Form>
+
+          <footer className='flex justify-center gap-1' >
+            <p className='text-14 font-normal text-gray-600' >
+              {
+                type === 'sign-in'
+                  ? 'Don\'t have an account?'
+                  : 'Already have an account?'
+              }
+            </p>
+              <Link href={type === 'sign-in' ? '/sign-up' : '/sign-in'} className='form-link'>
+               {type === 'sign-in' ? 'Sign Up' : 'Sign In'}
+              </Link>
+          </footer>
         </Fragment>
       )}
     </section>

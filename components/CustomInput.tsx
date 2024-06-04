@@ -3,13 +3,16 @@ import { FormControl, FormField, FormLabel, FormMessage } from './ui/form'
 import { Input } from './ui/input'
 
 import { authFormSchema } from '@/lib/utils'
-import { Control } from 'react-hook-form'
+import { Control, FieldPath } from 'react-hook-form'
 
+type authFiled = z.infer<typeof authFormSchema>
+
+// type inputNames = <z.infer<typeof authFormSchema>>
 interface CustomInputProps {
-  control: Control<z.infer<typeof authFormSchema>> , 
-  name: string,
+  control: Control<authFiled>, 
+  name: FieldPath<authFiled>,
   label: string,
-  placeholder: string
+  placeholder: string,
 }
 
 const CustomInput = ({ control, name, label, placeholder }: CustomInputProps) => {
@@ -27,6 +30,7 @@ const CustomInput = ({ control, name, label, placeholder }: CustomInputProps) =>
               <Input
                 placeholder={placeholder}
                 className='input-class'
+                type={name}
                 {...field}
               />
             </FormControl>
