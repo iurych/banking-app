@@ -1,7 +1,8 @@
 /* eslint-disable no-prototype-builtins */
-import { type ClassValue, clsx } from 'clsx'
+import { clsx, type ClassValue } from 'clsx'
 import qs from 'query-string'
 import { twMerge } from 'tailwind-merge'
+import { z } from 'zod'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -75,7 +76,6 @@ export function formatAmount(amount: number): string {
   return formatter.format(amount)
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value))
 
 export const removeSpecialCharacters = (value: string) => {
@@ -194,3 +194,10 @@ export const getTransactionStatus = (date: Date) => {
 
   return date > twoDaysAgo ? 'Processing' : 'Success'
 }
+
+export const authFormSchema = z.object({
+  email: z.string().email({
+    message: 'This should have a valid email format'
+  }),
+  password: z.string().min(8)
+})
